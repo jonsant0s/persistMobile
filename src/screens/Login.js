@@ -114,6 +114,23 @@ export class Login extends Component {
                          keyboardType="default"
                          returnKeyType="next"
                       />
+                    </View>
+                        <View style={styles.socialWrapper}>
+
+                          <Button
+                            title="Login"
+                            loading={false}
+                            loadingProps={{size: 'small', color: 'white'}}
+                            buttonStyle={{
+                              backgroundColor: '#FFD300',
+                              borderRadius: 15,
+                            }}
+                            titleStyle={{fontWeight: 'bold', fontSize: 23}}
+                            containerStyle={{marginVertical: 10, height: 50, width: 300}}
+                            onPress={formikProps.handleSubmit}
+                            disabled={!(formikProps.isValid && formikProps.dirty)}
+                            underlayColor="transparent"
+                          />
 
                       <TouchableOpacity
                         onPress={() =>
