@@ -5,7 +5,9 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
+import firebase from 'react-native-firebase';
 import {Text, Icon, Input, Button, SocialIcon} from 'react-native-elements';
+import {BoxPasswordStrengthDisplay} from 'react-native-password-strength-meter';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -13,12 +15,29 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
     .required('Email is Required'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
+  passwordConfirm: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Password confirm is required'),
 })
 
-export class EmailInput extends Component {
+export class RegisterScreen extends Component {
     static navigationOptions = {
       headerShown: false,
     };
+
+    signUp = (values) => {
+     this.setState({loading: true});
+     firebase
+       .auth()
+       .createUserWithEmailAndPassword(values.email, values.password)
+       .then(user => {
+         this.setState({user});
+         alert('Registration success');
+       })
+     };
     render() {
         return (
             <KeyboardAvoidingView
@@ -30,12 +49,12 @@ export class EmailInput extends Component {
                 style={styles.container}
                 keyboardShouldPersistTaps="handled">
                 <Formik
-                  initialValues={{email: ''}}
-                  onSubmit={values => {
-                    this.props.navigation.navigate('PasswordInputScreen', {email: values.email});
+                  initialValues={{email: '', password: '', passwordConfirm: ''}}
+                  onSubmit={(values, {setSubmitting}) => {
+                    this.signUp(values, this.props.navigation);
+                    setSubmitting(false);
                   }}
-                  validationSchema={SignupSchema}>
-
+                   validationSchema={SignupSchema}>
                   {formikProps => (
                     <React.Fragment>
                       <View style={styles.headerContainer}>
@@ -45,13 +64,12 @@ export class EmailInput extends Component {
                       <Input
                         leftIcon={
                           <Icon
-                            name="email-outline"
-                            type="material-community"
+                            name="email"
                             color="rgba(110, 120, 170, 1)"
                             size={25}
                           />
                         }
-                        placeholder="Enter your Email"
+                        placeholder="Email"
                         inputContainerStyle={{
                           borderWidth: 1,
                           borderColor: 'white',
@@ -67,9 +85,67 @@ export class EmailInput extends Component {
                         returnKeyType="next"
                         onChangeText={formikProps.handleChange('email')}
                       />
+                      <Input
+                        leftIcon={
+                          <Icon
+                            name="lock"
+                            color="rgba(110, 120, 170, 1)"
+                            size={25}
+                          />
+                        }
+                        placeholder="Password"
+                        inputContainerStyle={{
+                          borderWidth: 1,
+                          borderColor: 'white',
+                          borderLeftWidth: 0,
+                          height: 50,
+                          backgroundColor: 'white',
+                          marginBottom: 20,
+                        }}
+                        autoCapitalize="none"
+                        placeholder="Enter your Password"
+                        secureTextEntry={true}
+                        autoCorrect={false}
+                        returnKeyType="next"
+                        onChangeText={formikProps.handleChange('password')}
+                      />
+                      <Input
+                        leftIcon={
+                          <Icon
+                            name="lock"
+                            color="rgba(110, 120, 170, 1)"
+                            size={25}
+                          />
+                        }
+                        placeholder="Confirm Password"
+                        inputContainerStyle={{
+                          borderWidth: 1,
+                          borderColor: 'white',
+                          borderLeftWidth: 0,
+                          height: 50,
+                          backgroundColor: 'white',
+                          marginBottom: 20,
+                        }}
+                        autoCapitalize="none"
+                        secureTextEntry={true}
+                        autoCorrect={false}
+                        returnKeyType="next"
+                        onChangeText={formikProps.handleChange('passwordConfirm')}
+                      />
                       {formikProps.errors.email ? (
                         <Text style={{color: 'red'}}>{formikProps.errors.email}</Text>
                       ) : null}
+                      {formikProps.errors.password ? (
+                        <Text style={{color: 'red'}}>
+                          {formikProps.errors.password}
+                        </Text>
+                      ) : null}
+                      {formikProps.errors.passwordConfirm ? (
+                        <Text style={{color: 'red'}}>
+                          {formikProps.errors.passwordConfirm}
+                        </Text>
+                      ) : null}
+                      <BoxPasswordStrengthDisplay password={formikProps.values.password} />
                       <View style={styles.btnWrapper}>
                          <Button
                           disabled={!(formikProps.isValid && formikProps.dirty)}
@@ -137,4 +213,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-export default EmailInput
+export default RegisterScreen
