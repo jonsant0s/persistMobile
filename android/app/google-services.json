@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "95219926032",
+    "firebase_url": "https://persist-8439e.firebaseio.com",
+    "project_id": "persist-8439e",
+    "storage_bucket": "persist-8439e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95219926032:android:4f2dcc7f52bf10dba27695",
+        "android_client_info": {
+          "package_name": "com.persist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95219926032-tjl33dj8j9adnvtjfagelf0tls4d0s8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlLAh8il8jVDYr4UpzjBvaGLA-nqVFkJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95219926032-tjl33dj8j9adnvtjfagelf0tls4d0s8a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "95219926032-jeo7f0jgu32g6g3luasl371sfpv9p5an.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.persist"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
