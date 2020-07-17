@@ -17,7 +17,7 @@ export class Intro extends Component {
               </View>
               <View style={styles.contentView}>
                 <Button
-                  onPress={() => this.props.navigation.navigate('EmailInput')}
+                  onPress={() => this.props.navigation.navigate('RegisterScreen')}
                   title="Get started"
                   loading={false}
                   loadingProps={{size: 'small', color: 'white'}}
