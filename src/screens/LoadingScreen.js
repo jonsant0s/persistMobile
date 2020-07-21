@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, ActivityIndicator, TouchableOpacity, } from 'react-native'
 import {Text, Icon, Image, Button} from 'react-native-elements';
-export class Intro extends Component {
+export class LoadingScreen extends Component {
     static navigationOptions = {
       headerShown: false,
     };
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-export default Intro
+export default LoadingScreen
