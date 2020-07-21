@@ -14,23 +14,6 @@ export class HomeScreen extends Component {
                 <Icon name="md-body" size={80} type="ionicon" color={'#FFD300'} />
                 <Text h4 style={{textAlign: 'center'}}>Home</Text>
               </View>
-                <View style={styles.btnWrapper}>
-                    <Button
-                    title="Sign out"
-                    loading={false}
-                    loadingProps={{size: 'small', color: 'white'}}
-                    buttonStyle={{
-                      backgroundColor: '#FFD300',
-                      borderRadius: 15,
-                    }}
-                   onPress={() => firebase.auth().signOut().then(() => {
-                     alert('User Logged Out');
-                     setTimeout(() => {
-                       this.props.navigation.navigate('Intro');
-                     }, 2000);
-                   })}
-                 />
-                </View>
               </React.Fragment>
             </ScrollView>
         )
