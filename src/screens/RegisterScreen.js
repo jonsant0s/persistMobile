@@ -5,11 +5,13 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
-import firebase from 'react-native-firebase';
+
 import {Text, Icon, Input, Button, SocialIcon} from 'react-native-elements';
 import {BoxPasswordStrengthDisplay} from 'react-native-password-strength-meter';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+
+import firebase from 'react-native-firebase';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
@@ -38,6 +40,15 @@ export class RegisterScreen extends Component {
          alert('Registration success');
        })
      };
+
+     writeUser = (values) => {
+       this.setState({loading: true});
+       firebase.database().ref('User').push({
+         email: values.email
+       });
+     }
+
+
     render() {
         return (
             <KeyboardAvoidingView
@@ -51,6 +62,7 @@ export class RegisterScreen extends Component {
                 <Formik
                   initialValues={{email: '', password: '', passwordConfirm: ''}}
                   onSubmit={(values, {setSubmitting}) => {
+                    this.writeUser(values);
                     this.signUp(values, this.props.navigation);
                     setSubmitting(false);
                   }}

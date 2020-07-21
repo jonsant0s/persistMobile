@@ -1,10 +1,22 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, ActivityIndicator, TouchableOpacity, } from 'react-native'
 import {Text, Icon, Image, Button} from 'react-native-elements';
+
+import firebase from 'react-native-firebase';
+import { firebaseAuth } from '../firebase/config';
+
 export class LoadingScreen extends Component {
+
     static navigationOptions = {
       headerShown: false,
     };
+
+    componentDidMount() {
+      firebase.auth().onAuthStateChanged(user => {
+        this.props.navigation.navigate(user ? 'Home' : 'Loading')
+      })
+    }
+
     render() {
         return (
             <View style={styles.container}>

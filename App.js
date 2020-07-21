@@ -49,8 +49,8 @@ export default createAppContainer(
       App: AppTabNavigator,
       Auth: AuthStack
     },
-    //{
-      //initialRouteName: "Loading"
-    //}
+    {
+      initialRouteName: "Loading"
+    }
   )
 );
