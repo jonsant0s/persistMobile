@@ -8,9 +8,10 @@ import {
   ScrollView,
 } from 'react-native';
 import {Text, Icon, Input, Button, SocialIcon} from 'react-native-elements';
-import firebase from 'react-native-firebase'
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+
+import firebase from 'react-native-firebase'
 
 const LoginSchema = Yup.object().shape({
   email:Yup.string()

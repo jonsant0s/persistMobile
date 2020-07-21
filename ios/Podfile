@@ -81,6 +81,7 @@ target 'persist' do
   pod 'Firebase/Core', '~> 6.13.0'
   pod 'Firebase/Auth', '~> 6.13.0'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Database'
 
   target 'persistTests' do
     inherit! :complete
