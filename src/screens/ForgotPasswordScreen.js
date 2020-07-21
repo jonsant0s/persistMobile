@@ -18,7 +18,7 @@ const ForgotPasswordSchema = Yup.object().shape({
     .required('Email is Required'),
 });
 
-export class ForgotPassword extends Component {
+export class ForgotPasswordScreen extends Component {
   static navigationOptions = {
     headerShown: false,
   };
@@ -131,12 +131,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  socialLogin: {
-    flexDirection: 'row',
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   contentView: {
     // marginTop: 40,
     justifyContent: 'center',
@@ -153,4 +147,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ForgotPassword
+export default ForgotPasswordScreen

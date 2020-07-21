@@ -22,7 +22,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 
-export class Login extends Component {
+export class LoginScreen extends Component {
     static navigationOptions = {
       headerShown: false,
     };
@@ -182,4 +182,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-export default Login;
+export default LoginScreen
