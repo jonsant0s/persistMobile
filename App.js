@@ -17,11 +17,17 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const HomeStack = createStackNavigator(
   {
-    Today: {
+    Home: {
       screen: HomeScreen,
+      navigationOptions : {
+        title: 'Home',
+      }
     },
     AddHabit: {
       screen: AddHabitScreen,
+      navigationOptions : {
+        title: 'New Habit',
+      }
     },
   }
 );

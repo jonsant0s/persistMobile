@@ -1,13 +1,83 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ActivityIndicator, TouchableOpacity, } from 'react-native';
-import {Text, Icon, Image, Button} from 'react-native-elements';
+import {
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
+
+import {Text, Icon, Input, Button, SocialIcon} from 'react-native-elements';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+
+import firebase from 'react-native-firebase';
 
 export class AddHabitScreen extends Component {
+  addHabit = (values) => {
+    this.setState({loading:true});
+    firebase.database().ref('Users/' + firebase.auth().currentUser.uid + '/Habits').push({
+      goals: values.goals
+    })
+  }
   render(){
     return(
-      <View>
-        <Text> AddHabit </Text>
-      </View>
+      <KeyboardAvoidingView
+        style = {styles.keyboardAvoidingView}
+        behaviour = {'padding'}
+        enabled
+        keyboardVerticalOffset={Platform.OS==='ios' ? 64 : 84}>
+        <ScrollView
+          style={styles.container}
+          keyboardShouldPersistTaps="handled">
+          <Formik
+            initialValues={{goals: ''}}
+            onSubmit={(values, {setSubmitting}) => {
+              this.addHabit(values);
+            }}
+          >
+          {formikProps => (
+            <React.Fragment>
+              <Input
+                leftIcon={
+                  <Icon/>
+                }
+                placeholder="Habit"
+                inputContainerStyle={{
+                  borderWidth: 1,
+                  borderColor: 'white',
+                  borderLeftWidth: 0,
+                  height: 50,
+                  backgroundColor: 'white',
+                  marginBottom: 20,
+                }}
+                placeholderTextColor="grey"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                returnKeyType="next"
+                onChangeText={formikProps.handleChange('goals')}
+              />
+              <View style={styles.btnWrapper}>
+                 <Button
+                  disabled={!(formikProps.isValid && formikProps.dirty)}
+                  title="Add Habit"
+                  loading={false}
+                  loadingProps={{size: 'small', color: 'white'}}
+                  buttonStyle={{
+                    backgroundColor: '#FFD300',
+                    borderRadius: 15,
+                  }}
+                  titleStyle={{fontWeight: 'bold', fontSize: 23}}
+                  containerStyle={{marginVertical: 10, height: 50, width: 300}}
+                  onPress={formikProps.handleSubmit}
+                  underlayColor="transparent"
+                />
+              </View>
+            </React.Fragment>
+          )}
+          </Formik>
+        </ScrollView>
+      </KeyboardAvoidingView>
     )
   }
 }
