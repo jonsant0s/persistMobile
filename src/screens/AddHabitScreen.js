@@ -13,12 +13,15 @@ import * as Yup from 'yup';
 import firebase from 'react-native-firebase';
 
 export class AddHabitScreen extends Component {
-  addHabit = (values) => {
+  addHabit = (values, navigation) => {
     this.setState({loading:true});
     firebase.database().ref('Users/' + firebase.auth().currentUser.uid + '/Habits').push({
       goals: values.goals
+    }).then(() => {
+      navigation.navigate('Home');
     })
-  }
+  };
+
   render(){
     return(
       <KeyboardAvoidingView
@@ -32,7 +35,7 @@ export class AddHabitScreen extends Component {
           <Formik
             initialValues={{goals: ''}}
             onSubmit={(values, {setSubmitting}) => {
-              this.addHabit(values);
+              this.addHabit(values, this.props.navigation);
             }}
           >
           {formikProps => (
