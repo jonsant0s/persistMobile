@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native'
 import { Text, Icon, Input, Button, SocialIcon} from 'react-native-elements';
+
+import CalendarStrip from 'react-native-calendar-strip';
+
 import firebase from 'react-native-firebase'
 
 export class HomeScreen extends Component {
@@ -10,10 +13,22 @@ export class HomeScreen extends Component {
             style={styles.container}
             keyboardShouldPersistTaps="handled">
             <React.Fragment>
-              <View style={styles.headerContainer}>
-                <Icon name="md-body" size={80} type="ionicon" color={'#FFD300'} />
-                <Text h4 style={{textAlign: 'center'}}>Home</Text>
-              </View>
+              <SafeAreaView style={styles.calendar}>
+                <CalendarStrip
+                  style = {{height:150, paddingTop:20, paddingBottom:10}}
+                  />
+              </SafeAreaView>
+              <View style={styles.btnWrapper}>
+                  <Button
+                  loading={false}
+                  loadingProps={{size: 'small', color: 'white'}}
+                  buttonStyle={{
+                    backgroundColor: '#FFD300',
+                    borderRadius: 15,
+                  }}
+                 onPress={() => this.props.navigation.navigate('AddHabit') }
+               />
+               </View>
               </React.Fragment>
             </ScrollView>
         )
@@ -54,6 +69,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+  },
+  calendar: {
+    flex: 1,
   },
 });
 

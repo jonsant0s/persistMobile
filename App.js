@@ -15,26 +15,38 @@ import AddHabitScreen from './src/screens/AddHabitScreen';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+const HomeStack = createStackNavigator(
+  {
+    Today: {
+      screen: HomeScreen,
+    },
+    AddHabit: {
+      screen: AddHabitScreen,
+    },
+  }
+);
+
+
 const AppTabNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: HomeScreen,
+      screen: HomeStack,
       navigationOptions: {
         tabBarIcon : ({ tintColor }) => <Ionicons name="ios-home" size={24} color={tintColor}/>
       }
     },
-    AddHabit: {
-      screen: AddHabitScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (<Ionicons
-          name="ios-add-circle"
-          size={24}
-          color={tintColor}
+    //AddHabit: {
+    //  screen: AddHabitScreen,
+    //  navigationOptions: {
+    //    tabBarIcon: ({ tintColor }) => (<Ionicons
+      //    name="ios-add-circle"
+    //      size={24}
+    //      color={tintColor}
 
-          />
-        )
-      }
-    },
+    //      />
+    //    )
+  //    }
+  //  },
     Settings: {
       screen: SettingsScreen,
       navigationOptions: {
