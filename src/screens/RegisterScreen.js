@@ -36,18 +36,12 @@ export class RegisterScreen extends Component {
        .auth()
        .createUserWithEmailAndPassword(values.email, values.password)
        .then(user => {
-         this.setState({user});
+         firebase.database().ref('Users/' + user.user.uid).set({
+           email: values.email
+         });
          alert('Registration success');
        })
      };
-
-     writeUser = (values) => {
-       this.setState({loading: true});
-       firebase.database().ref('User').push({
-         email: values.email
-       });
-     }
-
 
     render() {
         return (
@@ -62,7 +56,6 @@ export class RegisterScreen extends Component {
                 <Formik
                   initialValues={{email: '', password: '', passwordConfirm: ''}}
                   onSubmit={(values, {setSubmitting}) => {
-                    this.writeUser(values);
                     this.signUp(values, this.props.navigation);
                     setSubmitting(false);
                   }}
