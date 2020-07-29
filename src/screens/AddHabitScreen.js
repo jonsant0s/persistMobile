@@ -16,7 +16,8 @@ export class AddHabitScreen extends Component {
   addHabit = (values, navigation) => {
     this.setState({loading:true});
     firebase.database().ref('Users/' + firebase.auth().currentUser.uid + '/Habits').push({
-      goals: values.goals
+      goals: values.goals,
+      done: false,
     }).then(() => {
       navigation.navigate('Home');
     })
